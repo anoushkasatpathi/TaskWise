@@ -1,0 +1,61 @@
+/* ------------------------------------------------------------------
+   Neon border: a conic gradient spun with transform (GPU friendly),
+   clipped to a thin ring, plus a blurred copy for the glow.
+   ------------------------------------------------------------------ */
+.neon {
+  --neon-speed: 3.2s;
+  --neon-colors: #a774ff, #f27ba8, #3d7bff, #5fd0b8, #f6d978, #a774ff;
+  --neon-inner-bg: var(--neon-bg, #120b22);
+  position: relative;
+  display: inline-block;
+  border-radius: var(--neon-radius);
+  padding: var(--neon-thickness);
+  isolation: isolate;
+}
+
+.neon__ring,
+.neon__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+.neon__ring { z-index: 0; }
+.neon__glow {
+  /* Same spinning gradient, clipped to the pill shape, then blurred into a halo. */
+  z-index: -1;
+  inset: -3px;
+  filter: blur(14px);
+  opacity: 0.75;
+}
+
+.neon__spin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(160%, 420px);
+  aspect-ratio: 1;
+  background: conic-gradient(from 0deg, var(--neon-colors));
+  transform: translate(-50%, -50%) rotate(0deg);
+  animation: neon-spin var(--neon-speed) linear infinite;
+  will-change: transform;
+}
+
+.neon__inner {
+  position: relative;
+  z-index: 1;
+  border-radius: calc(var(--neon-radius) - var(--neon-thickness));
+  background: var(--neon-inner-bg);
+}
+
+@keyframes neon-spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.neon:hover .neon__glow,
+.neon:focus-within .neon__glow { opacity: 0.95; }
+
+@media (prefers-reduced-motion: reduce) {
+  .neon__spin { animation: none !important; }
+}

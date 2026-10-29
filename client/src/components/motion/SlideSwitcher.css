@@ -1,0 +1,63 @@
+/* ------------------------------------------------------------------
+   Screen transitions. Layers share one grid cell, so the incoming and
+   outgoing screens overlap without absolute positioning or scrolling.
+   ------------------------------------------------------------------ */
+:root {
+  --sw-duration: 320ms;
+  --sw-ease: cubic-bezier(0.22, 0.8, 0.24, 1);
+  --sw-distance: 48px;
+}
+
+.sw {
+  position: relative;
+  display: grid;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  overflow: hidden;
+  min-height: 0;
+  min-width: 0;
+}
+.sw__layer {
+  grid-area: 1 / 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.sw__layer > * { flex: 1 1 auto; min-height: 0; }
+.sw__layer--out { pointer-events: none; z-index: 0; }
+.sw__layer--in { z-index: 1; }
+
+/* Horizontal slide (tabs, months, pages) */
+.sw--slide > .sw__layer--in.sw--fwd { animation: sw-in-right var(--sw-duration) var(--sw-ease) both; }
+.sw--slide > .sw__layer--in.sw--back { animation: sw-in-left var(--sw-duration) var(--sw-ease) both; }
+.sw--slide > .sw__layer--out.sw--fwd { animation: sw-out-left var(--sw-duration) var(--sw-ease) both; }
+.sw--slide > .sw__layer--out.sw--back { animation: sw-out-right var(--sw-duration) var(--sw-ease) both; }
+
+/* Vertical rise (steps inside panels) */
+.sw--rise > .sw__layer--in.sw--fwd { animation: sw-in-up var(--sw-duration) var(--sw-ease) both; }
+.sw--rise > .sw__layer--in.sw--back { animation: sw-in-down var(--sw-duration) var(--sw-ease) both; }
+.sw--rise > .sw__layer--out.sw--fwd { animation: sw-out-up var(--sw-duration) var(--sw-ease) both; }
+.sw--rise > .sw__layer--out.sw--back { animation: sw-out-down var(--sw-duration) var(--sw-ease) both; }
+
+/* Crossfade (switching calendar views) */
+.sw--fade > .sw__layer--in { animation: sw-fade-in var(--sw-duration) var(--sw-ease) both; }
+.sw--fade > .sw__layer--out { animation: sw-fade-out var(--sw-duration) var(--sw-ease) both; }
+
+@keyframes sw-in-right { from { opacity: 0; transform: translate3d(var(--sw-distance), 0, 0); } }
+@keyframes sw-in-left { from { opacity: 0; transform: translate3d(calc(var(--sw-distance) * -1), 0, 0); } }
+@keyframes sw-out-left { to { opacity: 0; transform: translate3d(calc(var(--sw-distance) * -1), 0, 0); } }
+@keyframes sw-out-right { to { opacity: 0; transform: translate3d(var(--sw-distance), 0, 0); } }
+@keyframes sw-in-up { from { opacity: 0; transform: translate3d(0, 24px, 0); } }
+@keyframes sw-in-down { from { opacity: 0; transform: translate3d(0, -24px, 0); } }
+@keyframes sw-out-up { to { opacity: 0; transform: translate3d(0, -24px, 0); } }
+@keyframes sw-out-down { to { opacity: 0; transform: translate3d(0, 24px, 0); } }
+@keyframes sw-fade-in { from { opacity: 0; transform: scale(0.985); } }
+@keyframes sw-fade-out { to { opacity: 0; transform: scale(1.01); } }
+@keyframes sw-plain-in { from { opacity: 0; } }
+@keyframes sw-plain-out { to { opacity: 0; } }
+
+/* Reduced motion: no movement, just a quick fade. */
+@media (prefers-reduced-motion: reduce) {
+  .sw > .sw__layer--in { animation: sw-plain-in 160ms linear both !important; }
+  .sw > .sw__layer--out { animation: sw-plain-out 160ms linear both !important; }
+}

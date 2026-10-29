@@ -1,0 +1,10 @@
+{
+  "name": "TaskWise",
+  "short_name": "TaskWise",
+  "description": "A calm to-do and reminder app.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0612",
+  "theme_color": "#0A0612",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

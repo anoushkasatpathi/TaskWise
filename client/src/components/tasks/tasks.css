@@ -1,0 +1,71 @@
+/* Paged task list and timeline rows */
+.task-list { display: flex; flex-direction: column; height: 100%; min-height: 0; gap: 4px; }
+.task-list__pages { flex: 1; touch-action: pan-y pinch-zoom; }
+.task-list__page { list-style: none; margin: 0; padding: 0; display: block; }
+.task-list__header {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 34px;
+  padding: 0 4px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.task-list__header .tiny { text-transform: none; letter-spacing: 0; font-weight: 400; }
+
+.task-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 62px auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  height: 58px;
+  margin-bottom: 6px;
+  padding: 0 10px 0 4px;
+  border-radius: 16px;
+  isolation: isolate;
+  transition: background var(--dur-fast) ease;
+}
+.task-row:hover { background: var(--surface-2); }
+.task-row__time { font-size: 13px; color: var(--text-2); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+/* the vertical timeline thread behind the check circles */
+.task-row::before {
+  content: '';
+  position: absolute;
+  left: 91px;
+  top: -6px;
+  bottom: -6px;
+  width: 1.5px;
+  background: var(--line);
+  z-index: -1;
+}
+.task-list__page li:first-child .task-row::before,
+.task-list__header + li .task-row::before { top: 50%; }
+.task-row__main {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  border-radius: 10px;
+}
+.task-row__title { font-size: 15px; font-weight: 500; }
+.task-row__meta { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--text-2); }
+.task-row__chev { color: var(--text-3); }
+.task-row.is-done .task-row__title { text-decoration: line-through; color: var(--text-3); }
+.task-row.is-done .task-row__time { color: var(--text-3); }
+
+/* Rows without a time column (day panel) */
+.task-row:not(:has(.task-row__time)) { grid-template-columns: auto minmax(0, 1fr) auto; padding-left: 8px; }
+.task-row:not(:has(.task-row__time))::before { display: none; }
+
+@media (max-width: 719px) {
+  .task-row { grid-template-columns: 54px auto minmax(0, 1fr) auto; gap: 10px; }
+  .task-row::before { left: 77px; }
+  .task-row__time { font-size: 12px; }
+}

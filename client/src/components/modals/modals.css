@@ -1,0 +1,86 @@
+/* Dialog contents */
+.form-grid { display: grid; gap: 14px; align-content: start; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  font-size: 14px;
+}
+
+.task-form { display: flex; flex-direction: column; gap: 14px; min-height: 0; }
+.task-form__steps { align-self: flex-start; }
+.task-form__panel { min-height: 330px; }
+.task-form__panel .segmented { align-self: start; justify-self: start; }
+
+.subtask-add { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.subtasks-box { margin-top: 4px; }
+.subtasks { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; min-height: 152px; align-content: start; }
+.subtasks li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  height: 38px;
+  padding: 0 4px 0 6px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+.subtasks li:hover { background: var(--surface-2); }
+.subtasks li.is-done .truncate { text-decoration: line-through; color: var(--text-3); }
+.subtasks__empty { display: block !important; padding: 10px 6px !important; height: auto !important; }
+.subtasks--readonly { min-height: 0; }
+.subtasks--readonly li { display: flex; height: 30px; color: var(--text-2); }
+.check--sm { width: 22px; height: 22px; }
+
+.swatches { display: flex; flex-wrap: wrap; gap: 10px; }
+.swatch {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  border: 0;
+  background: var(--sw);
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) ease;
+}
+.swatch:hover { transform: translateY(-2px); }
+.swatch[aria-checked='true'] { box-shadow: 0 0 0 3px var(--surface), 0 0 0 5px var(--sw); }
+.cal-preview { padding: 10px; border-radius: 12px; background: var(--surface-2); }
+.cal-preview .chip-task { height: 28px; font-size: 13px; }
+
+.daypanel { height: min(56dvh, 460px); display: flex; flex-direction: column; }
+.calsheet { height: min(50dvh, 360px); display: flex; flex-direction: column; }
+
+.onb { display: grid; gap: 14px; align-content: start; }
+.onb__summary { display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 18px; background: var(--accent-soft); }
+.onb__bell { display: grid; place-items: center; width: 52px; height: 52px; flex: none; border-radius: 50%; background: var(--sun); color: #2d3363; }
+
+.task-details { display: grid; gap: 14px; }
+.task-details__desc p {
+  white-space: pre-wrap;
+  color: var(--text-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.task-details__desc.is-expanded p { -webkit-line-clamp: 14; }
+
+.modal__foot .spacer { flex: 1; }
+
+@media (max-width: 719px) {
+  .task-form__panel { min-height: 300px; }
+  .form-row { gap: 10px; }
+  .modal__foot .btn--danger .btn__label { display: none; }
+}
+@media (max-height: 700px) {
+  .task-form__panel { min-height: 0; }
+  .subtasks { min-height: 116px; }
+}

@@ -1,0 +1,35 @@
+# Render Blueprint: one web service that builds the React client and serves
+# it together with the Express API. Connect the GitHub repo in Render
+# (New > Blueprint) and every push to main redeploys automatically.
+services:
+  - type: web
+    name: taskwise
+    runtime: node
+    plan: free
+    branch: main
+    autoDeployTrigger: commit
+    buildCommand: npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "22"
+      # Render creates a long random secret on the first deploy.
+      - key: JWT_SECRET
+        generateValue: true
+      # The values below are asked for when you create the Blueprint.
+      - key: MONGO_URI
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: ADMIN_EMAILS
+        sync: false
+      # Optional: enables reminders while the tab is closed (Web Push).
+      - key: VAPID_PUBLIC_KEY
+        sync: false
+      - key: VAPID_PRIVATE_KEY
+        sync: false
+      - key: VAPID_SUBJECT
+        sync: false

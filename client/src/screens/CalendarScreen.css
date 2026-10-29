@@ -1,0 +1,8 @@
+.calscreen { display: grid; gap: var(--gap); }
+.calscreen--split { grid-template-columns: 280px minmax(0, 1fr); }
+.calscreen__main { display: flex; flex-direction: column; }
+.calscreen__side { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 14px; padding: 22px 20px 20px; }
+.calscreen__sidehead { display: grid; gap: 6px; }
+.calscreen__count { font-size: 14px; color: var(--text-2); }
+.calscreen__count strong { font-size: 26px; font-weight: 500; color: var(--text); margin-right: 4px; }
+.calscreen__sideactions { display: grid; gap: 8px; }

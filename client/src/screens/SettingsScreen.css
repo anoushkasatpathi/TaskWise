@@ -1,0 +1,94 @@
+/* Settings, styled after the design's Settings card */
+.settings { display: flex; flex-direction: column; gap: 12px; }
+.settings--split { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: var(--gap); }
+.settings__tabs { align-self: center; }
+.settings__panel { flex: 1; display: flex; flex-direction: column; }
+.settings__panel > .sw { flex: 1; }
+
+.settings__nav { padding: 24px 16px 16px; display: flex; flex-direction: column; gap: 14px; }
+.settings__navhead { padding: 0 8px; }
+.settings__navhead h1 { font-size: 28px; }
+.settings__navhead p { font-size: 14px; margin-top: 4px; }
+.settings__nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.settings__navitem {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 12px 10px;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  text-align: left;
+  transition: background var(--dur-fast) ease;
+}
+.settings__navitem:hover { background: var(--surface-2); }
+.settings__navitem.is-active { background: var(--accent-soft); }
+.settings__navicon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; color: var(--accent-text); background: var(--surface-2); }
+.settings__navitem.is-active .settings__navicon { background: var(--surface); }
+.settings__navtext { display: grid; gap: 1px; font-weight: 500; }
+.settings__navtext .tiny { font-weight: 400; }
+.settings__chev { color: var(--text-3); }
+
+.settings__section { display: flex; flex-direction: column; gap: 18px; padding: 26px 28px 22px; height: 100%; min-height: 0; }
+.settings__sectionhead h2 { font-size: 26px; }
+.settings__sectionhead p { font-size: 14px; margin-top: 2px; }
+.settings__stack { display: grid; gap: 18px; align-content: start; max-width: 640px; }
+.settings__group { display: grid; gap: 10px; }
+.settings__fill { display: flex; flex-direction: column; gap: 14px; flex: 1; min-height: 0; max-width: 720px; }
+.settings__actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.settings__listbox { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 6px; }
+.settings__listbox > .sw { flex: 1; }
+.settings__test { justify-self: start; }
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.setting-row__text { display: grid; gap: 2px; }
+.setting-row__text > span:first-child { font-weight: 500; }
+
+.cal-rows { list-style: none; margin: 0; padding: 0; display: grid; align-content: start; }
+.cal-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  height: 62px;
+  border-bottom: 1px solid var(--line);
+}
+.cal-rows .cal-row:has(.avatar) { height: 58px; }
+.cal-row__swatch { width: 34px; height: 34px; border-radius: 12px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06); }
+.cal-row__text { display: grid; gap: 1px; min-width: 0; }
+.cal-row__text > span:first-child { font-weight: 500; }
+.cal-row__actions { display: flex; gap: 2px; }
+
+.admin-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: start; }
+.admin-form .btn { margin-top: 24px; }
+
+.account-card { display: flex; align-items: center; gap: 18px; padding: 18px; border-radius: 22px; background: var(--surface-2); }
+.account-card__text { display: grid; gap: 6px; min-width: 0; }
+.account-card__name { font-size: 20px; font-weight: 500; }
+.account-signout { justify-self: start; }
+
+.linklike { border: 0; background: none; padding: 0; color: var(--accent-text); text-decoration: underline; font-weight: 500; }
+
+@media (max-width: 719px) {
+  .settings__section { padding: 18px 16px 14px; gap: 14px; }
+  .settings__sectionhead h2 { font-size: 22px; }
+  .settings__stack { gap: 14px; }
+  .admin-form { grid-template-columns: 1fr; }
+  .admin-form .btn { margin-top: 0; justify-self: start; }
+  .settings .option { padding: 10px 12px; gap: 12px; }
+  .settings .option__icon { width: 34px; height: 34px; border-radius: 11px; }
+}
+@media (max-width: 719px) and (max-height: 760px) {
+  .settings .option__desc { display: none; }
+  .settings__sectionhead p { display: none; }
+}

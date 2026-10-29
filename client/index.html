@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="TaskWise - a calm to-do and reminder app with private and shared calendars." />
+    <meta name="theme-color" content="#F4F1EC" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0A0612" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <!-- Applies the saved theme before first paint so there is no light/dark flash. -->
+    <script src="/theme-boot.js"></script>
+    <title>TaskWise</title>
+    <style>
+      /* Boot loader: shown until React mounts. Mirrors MorphLoader.css. */
+      html, body { margin: 0; height: 100%; overflow: hidden; }
+      #boot { position: fixed; inset: 0; display: grid; place-items: center; background: #F4F1EC; }
+      html[data-theme='dark'] #boot { background: #0A0612; }
+      #boot i {
+        width: 56px; height: 56px; display: block;
+        background: linear-gradient(135deg, #8E93D9, #A774FF 55%, #F6D978);
+        animation: boot-morph 2.4s cubic-bezier(.6,0,.4,1) infinite;
+        box-shadow: 0 10px 40px rgba(142,147,217,.45);
+      }
+      @keyframes boot-morph {
+        0%,100% { border-radius: 50%; transform: rotate(0) scale(1); }
+        33% { border-radius: 22%; transform: rotate(120deg) scale(.86); }
+        66% { border-radius: 62% 38% 46% 54% / 48% 62% 38% 52%; transform: rotate(240deg) scale(1.06); }
+      }
+      @media (prefers-reduced-motion: reduce) { #boot i { animation: none; border-radius: 30%; } }
+    </style>
+  </head>
+  <body>
+    <div id="boot" role="status" aria-label="Loading TaskWise"><i></i></div>
+    <div id="root"></div>
+    <noscript>TaskWise needs JavaScript turned on.</noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
